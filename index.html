@@ -47,6 +47,17 @@
       font-size: 12px;
       color: #888;
     }
+
+    #playPauseButton {
+      font-size: 16px;
+      padding: 10px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
   </style>
   <title>跨年倒计时</title>
 </head>
@@ -61,6 +72,7 @@
       <source src="html.mp3" type="audio/mp3">
       Your browser does not support the audio element.
     </audio>
+    <button id="playPauseButton">播放</button>
   </div>
 </div>
 
@@ -161,6 +173,20 @@
 
     setInterval(createFirework, 2000);
   }
+
+  // Music Play/Pause
+  const music = document.getElementById('backgroundMusic');
+  const playPauseButton = document.getElementById('playPauseButton');
+
+  playPauseButton.addEventListener('click', function () {
+    if (music.paused) {
+      music.play();
+      playPauseButton.textContent = '暂停';
+    } else {
+      music.pause();
+      playPauseButton.textContent = '播放';
+    }
+  });
 </script>
 
 </body>
