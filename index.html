@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
@@ -48,16 +48,16 @@
       color: #888;
     }
 
-    #playPauseButton {
+    #playPauseButton,
+    #nextButton {
       font-size: 16px;
       padding: 10px;
+      margin: 0 10px;
       background-color: #3498db;
       color: #fff;
       border: none;
       cursor: pointer;
       border-radius: 5px;
-      margin-top: 20px;
-      z-index: 1; /* 通过设置 z-index 确保按钮位于其他元素上层 */
     }
 
     img {
@@ -83,6 +83,7 @@
       Your browser does not support the audio element.
     </audio>
     <button id="playPauseButton">播放</button>
+    <button id="nextButton">下一首</button>
   </div>
 </div>
 
@@ -93,6 +94,8 @@
 <script>
   // Countdown Timer
   const countdownDate = new Date('2023-12-31T23:59:59').getTime();
+  let currentSongIndex = 0;
+  const songList = ['html.mp3', 'html2.mp3', 'html3.mp3', 'html4.mp3', 'html5.mp3'];
 
   function updateCountdown() {
     const now = new Date().getTime();
@@ -161,8 +164,7 @@
       for (let i = 0; i < 100; i++) {
         const particle = new Particle(startX, startY);
         particles.push(particle);
-
-          }
+      }
 
       function animateFirework() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -188,17 +190,35 @@
   // Music Play/Pause
   const music = document.getElementById('backgroundMusic');
   const playPauseButton = document.getElementById('playPauseButton');
+  const nextButton = document.getElementById('nextButton');
 
   playPauseButton.addEventListener('click', function () {
+    togglePlayPause();
+  });
+
+  nextButton.addEventListener('click', function () {
+    playNextSong();
+  });
+
+  function togglePlayPause() {
     if (music.paused) {
       music.play();
       playPauseButton.textContent = '暂停';
     } else {
-      music.pause();
+            music.pause();
       playPauseButton.textContent = '播放';
     }
-  });
+  }
+
+  function playNextSong() {
+    currentSongIndex = (currentSongIndex + 1) % songList.length;
+    music.src = songList[currentSongIndex];
+    music.play();
+    playPauseButton.textContent = '暂停';
+  }
 </script>
 
 </body>
 </html>
+
+     
